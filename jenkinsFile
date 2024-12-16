@@ -16,7 +16,7 @@ pipeline {
 
         stage("Checkout from SCM"){
             steps{
-                git branch: "main", url:'https://github.com/Mariemcb/spring.git'
+                git branch: "main", url:'https://github.com/Mariemcb/spring'
             }
             
         }
