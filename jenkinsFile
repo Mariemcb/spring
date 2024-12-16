@@ -24,7 +24,32 @@ pipeline {
           sh "/usr/local/bin/mvn clean package"
         }
       }
+    } 
+
+stage('Initialize Terraform') {
+      steps {
+        script {
+          runTerraform('init')
+        }
+      }
     }
+
+    stage('Plan Terraform') {
+      steps {
+        script {
+          runTerraform('plan')
+        }
+      }
+    }
+
+    stage('Apply Terraform') {
+      steps {
+        script {
+          runTerraform('apply -auto-approve')
+        }
+      }
+    }
+
 
 
    

@@ -37,54 +37,12 @@ resource "azurerm_app_service" "app-service" {
 }
 
 
-pipeline {
-  agent any
-
-  stages {
-    stage('Build') {
-      steps {
-        script {
-          sh "mvn clean package"
-        }
-      }
-    }
-
-    stage('Upload to Azure Storage') {
-      steps {
-        script {
-          sh "az storage blob upload --account-name ${storageAccountName} --container-name ${storageContainerName} --name hello-world.jar --file ${jarFile} --auth-mode login"
-        }
-      }
-    }
-
-    stage('Initialize Terraform') {
-      steps {
-        script {
-          runTerraform('init')
-        }
-      }
-    }
-
-    stage('Plan Terraform') {
-      steps {
-        script {
-          runTerraform('plan')
-        }
-      }
-    }
-
-    stage('Apply Terraform') {
-      steps {
-        script {
-          runTerraform('apply -auto-approve')
-        }
-      }
-    }
+resource "null_resource" "deploy_jar" {
+  provisioner "local-exec" {
+    command = "curl -X POST -F \"file=@${var.jar_file_path}\" https://${azurerm_app_service.app-service.default_site_hostname}/deploy"
   }
-
-  post {
-    always {
-      echo 'Pipeline complete.'
-    }
-  }
+  depends_on = [azurerm_app_service.app-service]
 }
+
+
+
