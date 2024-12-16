@@ -21,11 +21,16 @@ pipeline {
         stage('Build') {
       steps {
         script {
-          sh "mvn clean package"
+          sh "/usr/local/bin/mvn clean package"
         }
       }
     }
+
+
+   
+        }
     }
+    
 
     
-}
+
