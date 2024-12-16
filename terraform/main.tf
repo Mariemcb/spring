@@ -5,10 +5,7 @@ provider "azurerm" {
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
-  tags = {
-    Owner = var.owner
-    Script = "Custom Terraform Script"
-  }
+  
 }
 
 resource "azurerm_app_service_plan" "service-plan" {
@@ -36,16 +33,8 @@ resource "azurerm_app_service" "app-service" {
     JAVA_VERSION = "1.8"
   }
 
-  tags = {
-    Owner = var.owner
-    Script = "Custom Terraform Script"
-  }
+ 
 }
-
-output "app_service_url" {
-  value = azurerm_app_service.app-service.default_site_hostname
-}
-
 
 
 pipeline {
