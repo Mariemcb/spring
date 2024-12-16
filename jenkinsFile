@@ -7,10 +7,18 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/user/repo.git'
+        stage("Cleanup Worksapce"){
+            steps{
+                cleanWs()
             }
+            
+        }
+
+        stage("Checkout from SCM"){
+            steps{
+                git branch: "main", url:'https://github.com/Mariemcb/spring.git'
+            }
+            
         }
 
         stage('Build Application') {
