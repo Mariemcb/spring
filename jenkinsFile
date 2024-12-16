@@ -33,35 +33,29 @@ pipeline {
     //   }
     // } 
 
-stage('Initialize Terraform') {
-      steps {
-        script {
-          runTerraform('init')
+stages {
+        stage('Initialize Terraform') {
+            steps {
+                sh 'terraform init'
+            }
         }
-      }
-    }
-
-    stage('Plan Terraform') {
-      steps {
-        script {
-          runTerraform('plan')
+        stage('Plan Terraform') {
+            steps {
+                sh 'terraform plan'
+            }
         }
-      }
-    }
-
-    stage('Apply Terraform') {
-      steps {
-        script {
-          runTerraform('apply -auto-approve')
+        stage('Apply Terraform') {
+            steps {
+                sh 'terraform apply -auto-approve'
+            }
         }
-      }
     }
 
 
 
    
         }
-    }
+    
     
 
     
