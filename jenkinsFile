@@ -1,21 +1,17 @@
 pipeline {
     agent any
 
-   
-
     stages {
-        stage("Cleanup Worksapce"){
-            steps{
+        stage("Cleanup Workspace") {
+            steps {
                 cleanWs()
             }
-            
         }
 
-        stage("Checkout from SCM"){
-            steps{
-                git branch: "main", url:'https://github.com/Mariemcb/spring'
+        stage("Checkout from SCM") {
+            steps {
+                git branch: "main", url: 'https://github.com/Mariemcb/spring'
             }
-            
         }
 
         stage('Build') {
@@ -25,39 +21,22 @@ pipeline {
             }
         }
 
-    //     stage('Build') {
-    //   steps {
-    //     script {
-    //       sh "/usr/local/bin/mvn clean package"
-    //     }
-    //   }
-    // } 
-
-stages {
         stage('Initialize Terraform') {
             steps {
                 sh 'terraform init'
             }
         }
+
         stage('Plan Terraform') {
             steps {
                 sh 'terraform plan'
             }
         }
+
         stage('Apply Terraform') {
             steps {
                 sh 'terraform apply -auto-approve'
             }
         }
     }
-
-
-
-   
-        }
 }
-    
-    
-
-    
-
