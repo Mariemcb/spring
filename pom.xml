@@ -17,6 +17,7 @@
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-web</artifactId>
+        <version>3.2.4</version> <!-- Exemple de version, adapte-la si besoin -->
     </dependency>
   </dependencies>
   <build>
