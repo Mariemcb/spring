@@ -19,12 +19,19 @@ pipeline {
         }
 
         stage('Build') {
-      steps {
-        script {
-          sh "/usr/local/bin/mvn clean package"
+            steps {
+                echo "Building the Project"
+                sh '/usr/local/bin/mvn clean install -X'  // Full debug logging enabled
+            }
         }
-      }
-    } 
+
+    //     stage('Build') {
+    //   steps {
+    //     script {
+    //       sh "/usr/local/bin/mvn clean package"
+    //     }
+    //   }
+    // } 
 
 stage('Initialize Terraform') {
       steps {
