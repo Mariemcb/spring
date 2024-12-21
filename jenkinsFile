@@ -37,7 +37,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker Image"
-                sh '/usr/local/bin/docker build -t dockerproject:latest /Users/mariem/.jenkins/jobs/TP_Docker/workspace/dockerFile' 
+               dir('/Users/mariem/.jenkins/jobs/TP_Docker/workspace') {
+                    sh 'docker build -t dockerproject:latest .'
+                }
             }
         }
 
