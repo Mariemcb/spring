@@ -46,9 +46,9 @@ pipeline {
        stage('Push Docker Image to Docker Hub') {
     steps {
         sh """
-            echo 'mariem.cheikhbrahim' | docker login -u 'mariemcheikhbrahim' --password-stdin || exit 1
-            docker tag dockerproject:latest mariemcheikhbrahim/dockerproject:latest
-            docker push mariemcheikhbrahim/dockerproject:latest
+            echo 'mariem.cheikhbrahim' | /usr/local/bin/docker login -u 'mariemcheikhbrahim' --password-stdin || exit 1
+            /usr/local/bin/docker tag dockerproject:latest mariemcheikhbrahim/dockerproject:latest
+            /usr/local/bin/docker push mariemcheikhbrahim/dockerproject:latest
         """
     }
 }
