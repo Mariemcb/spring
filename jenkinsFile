@@ -53,7 +53,15 @@ pipeline {
     }
 }
 
-        
+   stage('Run Docker Container') {
+        steps {
+            echo "Running Docker Container"
+            // Use port 9096 externally, mapping to port 8086 in the container
+           sh '/usr/local/bin/docker run -d -p 9096:8086 mariemproject:latest'
+            
+      
+        }
+    }     
 
         
     }
