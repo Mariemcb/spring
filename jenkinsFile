@@ -27,6 +27,13 @@ pipeline {
             }
         }
 
+         stage('show path') {
+            steps {
+                echo "Building Docker Image"
+                sh 'pwd' 
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 echo "Building Docker Image"
