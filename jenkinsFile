@@ -45,13 +45,10 @@ pipeline {
 
 stage('Push Docker Image to Docker Hub') {
             steps {
-              # 1. Connexion à Docker Hub
 echo "mariem.cheikhbrahim" | sh '/usr/local/bin/docker login -u "mariemcheikhbrahim" --password-stdin'
 
-# 2. Taguer l'image pour Docker Hub
 sh '/usr/local/bin/docker tag dockerproject:latest mariemcheikhbrahim/dockerproject:latest'
 
-# 3. Pousser l'image vers Docker Hub
 sh '/usr/local/bin/docker push mariemcheikhbrahim/dockerproject:latest'
 
                    
