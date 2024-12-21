@@ -43,6 +43,22 @@ pipeline {
             }
         }
 
+stage('Push Docker Image to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                    echo "Pushing Docker Image to Docker Hub"
+                    // Log in to Docker Hub
+                    sh 'echo $DOCKER_PASSWORD | /usr/local/bin/docker login -u $DOCKER_USERNAME --password-stdin'
+                    
+                    // Tag the image for Docker Hub
+                    sh '/usr/local/bin/docker tag dockerproject:latest mariemcheikhbrahim/dockerproject:latest'
+                    
+                    // Push the image to Docker Hub
+                    sh '/usr/local/bin/docker push mariemcheikhbrahim/dockerproject:latest'
+                }
+            }
+        }
+
         
     }
 }
