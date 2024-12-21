@@ -1,5 +1,11 @@
+
 pipeline {
     agent any
+
+    environment {
+        DOCKER_IMAGE = "mariemcheikhbrahim/dockerproject:latest" // Remplacez par votre nom d'image Docker
+        DOCKER_CREDENTIALS = 'docker-hub-creds' // ID des credentials dans Jenkins
+    }
 
     stages {
         stage("Cleanup Workspace") {
@@ -10,18 +16,24 @@ pipeline {
 
         stage("Checkout from SCM") {
             steps {
-                git branch: "main", url: 'https://github.com/Mariemcb/spring'
+                git branch: "main", url: 'https://github.com/Mariemcb/spring' // Remplacez par votre repo GitHub
             }
         }
 
         stage('Build') {
             steps {
                 echo "Building the Project"
-                sh '/usr/local/bin/mvn clean install -X'  // Full debug logging enabled
+                sh '/usr/local/bin/mvn clean install -X'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo "Building Docker Image"
+                sh '/usr/local/bin/docker build -t mariemproject:latest .' // Construit l'image Docker
             }
         }
 
         
-
     }
 }
